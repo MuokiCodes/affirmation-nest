@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brenda's Affirmation Nest</title>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Source Sans Pro', sans-serif;
+      background: linear-gradient(180deg, #fce4ec 0%, #f3e5f5 100%);
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }
+    h1 {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+      font-weight: 600;
+      text-align: center;
+    }
+    .subtitle {
+      font-size: 1rem;
+      color: #555;
+      text-align: center;
+      margin-bottom: 2rem;
+      max-width: 600px;
+    }
+    .button-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+    .button-grid button,
+    #lastButton {
+      background-color: #ba68c8;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 25px;
+      color: white;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .button-grid button:hover,
+    #lastButton:hover {
+      background-color: #ab47bc;
+    }
+    #lastButton {
+      display: block;
+      margin: 0 auto 2rem auto;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
+    .modal-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      max-width: 400px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+      text-align: center;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+    .modal-content h2 {
+      font-size: 1.2rem;
+      color: #7b1fa2;
+      margin-bottom: 1rem;
+    }
+    .modal-content p {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #444;
+      white-space: pre-wrap;
+    }
+    .chatbox {
+      margin-top: 3rem;
+      text-align: center;
+    }
+    .chatbox label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+      color: #555;
+    }
+    .chatbox textarea {
+      width: 100%;
+      max-width: 500px;
+      height: 100px;
+      border-radius: 8px;
+      padding: 0.75rem;
+      font-size: 1rem;
+      border: 1px solid #ddd;
+      resize: none;
+      font-family: 'Source Sans Pro', sans-serif;
+    }
+    .chatbox button {
+      margin-top: 0.75rem;
+      background-color: #ba68c8;
+      color: white;
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+    .chatbox button:hover {
+      background-color: #ab47bc;
+    }
+    footer {
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #999;
+    }
+    .music-player {
+      margin-top: 3rem;
+      text-align: center;
+    }
+    .music-player button {
+      background-color: #9575cd;
+      color: white;
+      border: none;
+      padding: 0.5rem 1.2rem;
+      font-size: 0.95rem;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .music-player button:hover {
+      background-color: #7e57c2;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <h1>Brenda's Affirmation Nest</h1>
+  <div class="subtitle">Hi Baby.. I made this for you, hope it makes you smile <3!</div>
+
+  <div class="button-grid">
+    <button onclick="showModal(0)">you are beautiful🌸</button>
+    <button onclick="showModal(1)">you are smart🧠</button>
+    <button onclick="showModal(2)">you are caring🫂</button>
+    <button onclick="showModal(3)">you are so sexy🥵</button>
+    <button onclick="showModal(4)">you are everything💫</button>
+  </div>
+
+  <button id="lastButton" onclick="showModal(5)">💌 My Sweet Kare</button>
+
+  <div class="music-player">
+    <p>the song in my head when I'm sleeping next to you</p>
+    <button onclick="document.getElementById('bgMusic').play()">Play Music 🎵</button>
+  </div>
+  <audio id="bgMusic" loop>
+    <source src="Bruno Major - Nothing.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <div id="modal" class="modal" onclick="this.style.display='none'">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <h2 id="modalTitle"></h2>
+      <p id="modalText"></p>
+    </div>
+  </div>
+
+  <div class="chatbox">
+    <label for="symptoms">Welcome to Dr. Brian's Clinic, write your symptoms and I'll fix you😉</label>
+    <form action="https://formspree.io/f/xyzpgalr" method="POST">
+      <textarea id="symptoms" name="message" placeholder="niambie mrembo wangu..."></textarea>
+      <br>
+      <button type="submit">Get Fixed!</button>
+    </form>
+  </div>
+
+  <footer>Happy 20th Birthday Baby!</footer>
+
+  <script>
+    const titles = [
+      'ũrĩ mũthaka',
+      'ũrĩ mũũgĩ',
+      'nĩ wendete andũ',
+      'wii mwĩĩ museo muno utuma niwa nesa',
+      'nĩwe ũndũ ũrĩa wothe nyendaga',
+      'My Sweet Kare'
+    ];
+
+    const texts = [
+      "Don’t ask me why I’m looking at you — go look at the mirror. You're a sight.",
+      "You’re dangerously smart. My Sexy Little Doctor! Sexy and sharp is an unfair combo and yet… here you are. Makes me want to be sick everyday😣",
+      "You carry people in your heart so gently, even when they don’t notice. People love you back because you give off the kind of love that feels like home. The world is softer where you walk.",
+      "I could write a whole book about but how sexy you are. Every inch of you is a masterpiece (trust me I know every inch) and I’m your number 1 fan with no shame sadly.",
+      "You don’t just tick my boxes, you are the whole list. Every version of me I’ve wanted to be… wants you. You are home, dream, desire, joy all wrapped up in one.",
+      `Roses are red, violets are blue
+I never planned for someone like you.
+
+You showed up quietly, but everything changed,
+The air felt softer, life made more sense.
+
+I watch you smile and I feel full,
+Like the universe paused to give me one perfect gift.
+
+I don’t always know how to say it,
+but loving you feels like breathing; natural and easy.`
+    ];
+
+    function showModal(index) {
+      document.getElementById('modalTitle').textContent = titles[index];
+      document.getElementById('modalText').textContent = texts[index];
+      document.getElementById('modal').style.display = 'flex';
+    }
+
+    window.onload = function() {
+      const savedNote = localStorage.getItem('clinicNote');
+      if (savedNote) document.querySelector('textarea').value = savedNote;
+    };
+  </script>
+</body>
+</html>
