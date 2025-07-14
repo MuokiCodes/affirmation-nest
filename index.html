@@ -166,7 +166,7 @@
 
   <div class="music-player">
     <p>the song in my head when I'm sleeping next to you</p>
-    <button onclick="document.getElementById('bgMusic').play()">Play Music 🎵</button>
+    <button id="musicBtn" onclick="toggleMusic()">Play Music 🎵</button>
   </div>
   <audio id="bgMusic" loop>
   <source src="https://muokicodes.github.io/affirmation-nest/nothing.mp3" type="audio/mpeg">
@@ -230,6 +230,20 @@ but loving you feels like breathing; natural and easy.`
       const savedNote = localStorage.getItem('clinicNote');
       if (savedNote) document.querySelector('textarea').value = savedNote;
     };
+
+    const music = document.getElementById("bgMusic");
+const btn = document.getElementById("musicBtn");
+
+function toggleMusic() {
+  if (music.paused) {
+    music.play();
+    btn.textContent = "Pause Music ⏸️";
+  } else {
+    music.pause();
+    btn.textContent = "Play Music 🎵";
+  }
+}
+
   </script>
 </body>
 </html>
