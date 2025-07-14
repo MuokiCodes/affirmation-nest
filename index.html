@@ -238,11 +238,15 @@ but loving you feels like breathing; natural and easy.`
   const message = document.getElementById('symptoms').value;
   const responseEl = document.getElementById('response');
 
-  const res = await fetch('https://formspree.io/f/xyzpgalr', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ message })
-  });
+ const res = await fetch('https://formspree.io/f/xyzpgalr', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json'
+  },
+  body: JSON.stringify({ message })
+});
+
 
   if (res.ok) {
     responseEl.textContent = "✅ Fixed. Now kiss 😘";
