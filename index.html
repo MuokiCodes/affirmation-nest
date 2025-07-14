@@ -181,13 +181,15 @@
   </div>
 
   <div class="chatbox">
-    <label for="symptoms">Welcome to Dr. Brian's Clinic, write your symptoms and I'll fix you😉</label>
-    <form action="https://formspree.io/f/xyzpgalr" method="POST">
-      <textarea id="symptoms" name="message" placeholder="niambie mrembo wangu..."></textarea>
-      <br>
-      <button type="submit">Get Fixed!</button>
-    </form>
-  </div>
+  <label for="symptoms">Welcome to Dr. Brian's Clinic, write your symptoms and I'll fix you😉</label>
+  <form id="clinicForm">
+    <textarea id="symptoms" name="message" placeholder="niambie mrembo wangu..."></textarea>
+    <br>
+    <button type="submit">Get Fixed!</button>
+    <p id="response" style="margin-top: 0.5rem; color: green;"></p>
+  </form>
+</div>
+
 
   <footer>Happy 20th Birthday Baby!</footer>
 
@@ -230,7 +232,25 @@ but loving you feels like breathing; natural and easy.`
       const savedNote = localStorage.getItem('clinicNote');
       if (savedNote) document.querySelector('textarea').value = savedNote;
     };
+    document.getElementById('clinicForm').addEventListener('submit', async function(e) {
+  e.preventDefault(); // stop form from redirecting
 
+  const message = document.getElementById('symptoms').value;
+  const responseEl = document.getElementById('response');
+
+  const res = await fetch('https://formspree.io/f/xyzpgalr', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message })
+  });
+
+  if (res.ok) {
+    responseEl.textContent = "✅ Fixed. Now kiss 😘";
+    document.getElementById('symptoms').value = '';
+  } else {
+    responseEl.textContent = "❌ Oops! Something went wrong.";
+  }
+});
     const music = document.getElementById("bgMusic");
 const btn = document.getElementById("musicBtn");
 
